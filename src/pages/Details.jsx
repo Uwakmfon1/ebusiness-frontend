@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { set } from "zod";
+import { CartContext, useCart } from "../context/CartContext";
 
 export default function Details() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart, removeFromCart } = useContext(CartContext);
+  
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -21,7 +24,6 @@ export default function Details() {
         setLoading(false);
       }
     };
-    // setLoading(true);
     fetchProduct();
   }, [id]);
 
@@ -53,7 +55,10 @@ export default function Details() {
               </p>
             )}
 
-            <button className="bg-brown-500 w-full"><a href="#">Add to Cart</a></button>
+            <button 
+              onClick={()=> addToCart(product)}
+              className="bg-brown-500 w-full">Add to Cart</button>
+            <input type="text" id="incart" />
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
-import useFetchData from "../../hooks/useFetchData";
+import useFetchData from "../hooks/useFetchData";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function Home() {
   const { data, loading, error } = useFetchData(
@@ -7,12 +9,13 @@ export default function Home() {
 
   const dataArray = Object.values(data);
   const items = dataArray[0];
-  console.log(items);
+  const { addToCart } = useContext(CartContext);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="w-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
+    <div className="w-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">      
       <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">
         Our Products
       </h1>
@@ -53,7 +56,7 @@ export default function Home() {
 
               <button className="mt-4 w-full bg-gray text-black font-semibold border shadow py-2 rounded-lg hover:bg-indigo-700 transition-colors">
                 <a href={`/details/${product.id}`} className="block w-full">
-                  View Details 
+                  View Details
                 </a>
               </button>
             </div>

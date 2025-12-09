@@ -9,6 +9,8 @@ import RequireAuth from "./pages/RequireAuth";
 import Dashboard from "./pages/Dashboard";
 import { CartProvider } from "./context/CartContext";
 import Cart from "./pages/Cart";
+import CheckoutCart from "./pages/CheckoutCart";
+
 
 // import {Route, createBrowserRouter, createRoutesFromElements, RouterProvider} from 'react-router-dom'
 
@@ -29,7 +31,7 @@ import Cart from "./pages/Cart";
 
 function App() {
   return (
-    <CartProvider>
+    // <CartProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -51,10 +53,11 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/details/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/:id/checkout" element={<CheckoutCart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </CartProvider>
+    // </CartProvider>
   );
 }
 

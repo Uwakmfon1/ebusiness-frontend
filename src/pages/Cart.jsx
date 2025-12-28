@@ -33,7 +33,7 @@ export default function Cart() {
           <h3>{item.name}</h3>
           <p>Price: ₦{item.price}</p>
           <p>Quantity: {item.quantity}</p>
-          <p></p>
+          <p>Sub Total:  ₦{item.price * item.quantity}</p>
 
           <div>
 

@@ -6,16 +6,17 @@ export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [cartId, setCartId] = useState(null);
   // Load user from localStorage on initial app load
   useEffect(() => {
     const loadStoredAuth = () => {
       const savedUser = localStorage.getItem("user");
       const savedToken = localStorage.getItem("token");
+      const savedCartId = localStorage.getItem("cartId");
 
       if(savedToken && savedUser !== "null" && savedToken !== "undefined"){
         setToken(savedToken);
-        axios.defaults.headers.common["Authorization"] = `Bearer${token}`;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${savedToken}`;
       }
 
       if(savedUser && savedUser !=="null" && savedUser !== "undefined"){
@@ -25,6 +26,10 @@ export default function AuthProvider({ children }) {
           console.error("Invalid user data in localStorage");
           localStorage.removeItem("user");
         }
+      }
+
+      if(savedCartId && savedCartId !=="null"){
+        setCartId(savedCartId);
       }
       setLoading(false);
     }
@@ -40,16 +45,16 @@ export default function AuthProvider({ children }) {
         password,
       });
       
-      const {token, user} = response.data;
+      const {token, user, cartId} = response.data.data;
   
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-  
+      localStorage.setItem("cartId", cartId);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   
       setUser(user);
       setToken(token);
-  
+      setCartId(cartId);      
       return response.data;
     }catch(error) {
       throw error.response?.data?.message || "Login failed";

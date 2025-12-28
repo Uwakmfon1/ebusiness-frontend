@@ -60,6 +60,11 @@ export default function CheckoutCart() {
                 <p>Item: {item.name}</p>
                 <p>Quantity: {item.quantity}</p>
               </div>
+              <button className="bg-green-400 text-black semibold w-full p-3">    
+                        
+              {/* =add onclicck function to the buton */}
+                Proceed to Payment
+              </button>
             </div>
           ))}
         </div>
